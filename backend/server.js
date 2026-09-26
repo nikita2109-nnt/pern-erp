@@ -5,7 +5,7 @@ const authenticate = require("./middleware/authMiddleware");
 const authorize = require("./middleware/roleMiddleware");
 const customerRoutes = require("./routes/customerRoutes");
 const enquiryRoutes = require("./routes/enquiryRoutes");
-
+const quotationRoutes = require("./routes/quotationRoutes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -64,7 +64,7 @@ app.get(
 );
 app.use("/api/customers", customerRoutes);
 app.use("/api/enquiries", enquiryRoutes);
-
+app.use("/api/quotations", quotationRoutes);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
