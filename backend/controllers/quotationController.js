@@ -267,6 +267,47 @@ const getQuotations = async (req, res) => {
     }
 };
 
+// Accept an existing quotation
+const acceptQuotation = async (req, res) => {
+    const quotationId = Number(req.params.id);
+
+    if (!Number.isInteger(quotationId) || quotationId <= 0) {
+        return res.status(400).json({
+            message: "Invalid quotation ID"
+        });
+    }
+
+    try {
+        const result = await pool.query(
+            `UPDATE quotations
+             SET status = 'ACCEPTED'
+             WHERE id = $1
+               AND status = 'DRAFT'
+               AND valid_until >= CURRENT_DATE
+             RETURNING *`,
+            [quotationId]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(400).json({
+                message: "Quotation not found, expired, or not in DRAFT status"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Quotation accepted successfully",
+            quotation: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error("Accept quotation error:", error.message);
+
+        return res.status(500).json({
+            message: "Failed to accept quotation"
+        });
+    }
+};
 module.exports = { createQuotation,
-     getQuotations
+     getQuotations,
+      acceptQuotation
  };

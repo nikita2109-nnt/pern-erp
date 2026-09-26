@@ -2,34 +2,26 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    createQuotation,
-    getQuotations,
-    acceptQuotation
-} = require("../controllers/quotationController");
+    createSalesOrder,
+    confirmSalesOrder
+} = require("../controllers/orderController");
 
 const authenticate = require("../middleware/authMiddleware");
 const authorize = require("../middleware/roleMiddleware");
 
-// Create a quotation
+// Create a sales order from an accepted quotation
 router.post(
     "/",
     authenticate,
     authorize("ADMIN", "SALES_USER"),
-    createQuotation
-);
-// Get all quotations
-router.get(
-    "/",
-    authenticate,
-    authorize("ADMIN", "SALES_USER"),
-    getQuotations
+    createSalesOrder
 );
 
-// Accept a quotation
+// Confirm a sales order and reserve inventory
 router.patch(
-    "/:id/accept",
+    "/:id/confirm",
     authenticate,
     authorize("ADMIN", "SALES_USER"),
-    acceptQuotation
+    confirmSalesOrder
 );
 module.exports = router;
