@@ -1,10 +1,13 @@
-
 const express = require("express");
 const pool = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
+const authenticate = require("./middleware/authMiddleware");
+const authorize = require("./middleware/roleMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware to read JSON request bodies
 app.use(express.json());
 
 // Test API
@@ -34,6 +37,29 @@ app.get("/test-db", async (req, res) => {
         });
     }
 });
+
+// Authentication routes
+app.use("/api/auth", authRoutes);
+
+// Protected API — requires a valid JWT
+app.get("/api/profile", authenticate, (req, res) => {
+    res.status(200).json({
+        message: "Protected route accessed successfully",
+        user: req.user
+    });
+});
+// Temporary admin-only test API
+app.get(
+    "/api/admin/test",
+    authenticate,
+    authorize("ADMIN"),
+    (req, res) => {
+        res.status(200).json({
+            message: "Welcome, Admin!",
+            user: req.user
+        });
+    }
+);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
