@@ -1,25 +1,27 @@
 
 # Industrial Sales & Inventory Management System
 
-A full-stack web application developed using the PERN stack (PostgreSQL, Express.js, React.js and Node.js). The system manages the sales workflow of an industrial products business, from customer enquiries and quotations to sales orders, inventory reservation and dispatch.
+A full-stack web application developed using the PERN stack (PostgreSQL, Express.js, React.js and Node.js).
+
+The system manages the sales workflow of an industrial products business, from customer enquiries and quotations to sales orders, inventory reservation and dispatch.
 
 ## Tech Stack
 
-**Frontend**
+### Frontend
 - React.js with Vite
 - JavaScript
 - CSS
 - Axios
 - React Router
 
-**Backend**
+### Backend
 - Node.js
 - Express.js
 - PostgreSQL
 - JWT Authentication
 - bcrypt
 
-**Development Tools**
+### Development Tools
 - Visual Studio Code
 - pgAdmin
 - Thunder Client
@@ -56,11 +58,9 @@ A full-stack web application developed using the PERN stack (PostgreSQL, Express
 
 ### Inventory Management
 - View physical, reserved and available stock
-- Calculate available stock as:
-
-  Available Stock = Physical Stock - Reserved Stock
-
 - Prevent reservations that exceed available stock
+
+Available Stock = Physical Stock - Reserved Stock
 
 ### Dispatch Management
 - Dispatch confirmed sales orders
@@ -70,115 +70,100 @@ A full-stack web application developed using the PERN stack (PostgreSQL, Express
 
 ## Project Structure
 
-```text
-pern/
-├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── routes/
-│   ├── .env.example
-│   ├── package.json
-│   └── server.js
-├── frontend/
-│   ├── src/
-│   ├── package.json
-│   └── index.html
-├── database/
-│   └── schema.sql
-└── README.md
-```
+    pern/
+    ├── backend/
+    │   ├── config/
+    │   ├── controllers/
+    │   ├── middleware/
+    │   ├── routes/
+    │   ├── .env.example
+    │   ├── package.json
+    │   └── server.js
+    ├── frontend/
+    │   ├── src/
+    │   ├── package.json
+    │   └── index.html
+    ├── database/
+    │   └── schema.sql
+    ├── docs/
+    │   ├── DATABASE.md
+    │   └── API.md
+    └── README.md
 
 ## Prerequisites
 
-Install the following software before running the project:
+Install the following software:
 
 - Node.js and npm
 - PostgreSQL
-- pgAdmin (optional, for database management)
+- pgAdmin (optional)
 - Git
 
 ## Installation and Setup
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/nikita2109-nnt/pern-erp.git
-cd pern-erp
-```
+    git clone https://github.com/nikita2109-nnt/pern-erp.git
+    cd pern-erp
 
-### 2. Set Up the PostgreSQL Database
+### 2. Set Up PostgreSQL
 
 Create a PostgreSQL database named:
 
-```text
-per_erp
-```
+    per_erp
 
-Open pgAdmin, select the database, and run the SQL statements from:
+Open pgAdmin, select the database and execute:
 
-```text
-database/schema.sql
-```
+    database/schema.sql
 
-If a database seed script is provided, run it to insert the initial product and user data.
+Run the project's seed script, if included, to insert initial data.
 
 ### 3. Configure the Backend
 
 Open a terminal in the backend directory:
 
-```bash
-cd backend
-npm install
-```
+    cd backend
+    npm install
 
-Create a `.env` file in the `backend` directory. Use `.env.example` as the reference and provide your own local database credentials and JWT secret.
+Create a `.env` file in the backend directory using `.env.example` as a reference.
 
-Example environment configuration:
+Example configuration:
 
-```env
-PORT=5000
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=per_erp
-DB_USER=postgres
-DB_PASSWORD=your_postgresql_password
-JWT_SECRET=replace_with_a_long_random_secret
-```
+    PORT=5000
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_NAME=per_erp
+    DB_USER=postgres
+    DB_PASSWORD=your_postgresql_password
+    JWT_SECRET=replace_with_a_long_random_secret
 
-Ensure the environment variable names match those used in `backend/config/db.js`.
+Make sure the variable names match your `backend/config/db.js` file.
 
-Never commit the `.env` file or actual passwords to GitHub.
+Never upload your `.env` file or actual passwords to GitHub.
 
 ### 4. Start the Backend
 
-```bash
-npm run dev
-```
+From the backend directory:
 
-The backend runs at:
+    npm run dev
 
-```text
-http://localhost:5000
-```
+Backend URL:
 
-### 5. Configure and Start the Frontend
+    http://localhost:5000
 
-Open another terminal:
+### 5. Start the Frontend
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+Open another terminal from the project root:
 
-The frontend runs at:
+    cd frontend
+    npm install
+    npm run dev
 
-```text
-http://localhost:5173
-```
+Frontend URL:
 
-Open this URL in your browser.
+    http://localhost:5173
+
+Open the frontend URL in your browser.
 
 ## Application Workflow
 
@@ -230,9 +215,7 @@ All application API routes are prefixed with `/api`.
 
 Protected endpoints require a JWT token:
 
-```text
-Authorization: Bearer YOUR_JWT_TOKEN
-```
+    Authorization: Bearer YOUR_JWT_TOKEN
 
 ## Security and Data Integrity
 
@@ -242,6 +225,12 @@ Authorization: Bearer YOUR_JWT_TOKEN
 - Database transactions are used for critical operations.
 - Inventory reservation checks prevent over-reservation.
 - Dispatch operations update inventory and order status together.
+
+## Documentation
+
+- [Database Documentation and ER Diagram](docs/DATABASE.md)
+- [API Documentation](docs/API.md)
+- [Database Schema](database/schema.sql)
 
 ## Author
 
