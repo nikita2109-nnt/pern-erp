@@ -12,7 +12,7 @@ import {
   LogOut
 } from "lucide-react";
 import "./Dashboard.css";
-
+import Enquiries from "./Enquiries";
 function Dashboard() {
   const [activePage, setActivePage] = useState("Dashboard");
 
@@ -101,6 +101,10 @@ function Dashboard() {
             </>
           ) : activePage === "Customers" ? (
   <Customers />
+) : activePage === "Customers" ? (
+  <Customers />
+) : activePage === "Enquiries" ? (
+  <Enquiries />
 ) : (
   <div className="page-placeholder">
     <h2>{activePage}</h2>
