@@ -8,9 +8,16 @@ const authenticate = require("../middleware/authMiddleware");
 const authorize = require("../middleware/roleMiddleware");
 
 const {
-    createEnquiry,
-    getEnquiries
+  createEnquiry,
+  getEnquiries,
+  getEnquiryById
 } = require("../controllers/enquiryController");
+
+module.exports = {
+  createEnquiry,
+  getEnquiries,
+  getEnquiryById
+};
 // Create a new enquiry
 router.post(
     "/",
@@ -26,5 +33,7 @@ router.get(
     authorize("ADMIN", "SALES_USER"),
     getEnquiries
 );
-
+console.log("authenticate:", typeof authenticate);
+console.log("getEnquiryById:", typeof getEnquiryById);
+router.get("/:id", authenticate, getEnquiryById);
 module.exports = router;

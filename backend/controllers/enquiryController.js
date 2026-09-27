@@ -158,8 +158,43 @@ const getEnquiries = async (req, res) => {
         });
     }
 };
+const getEnquiryById = async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    const result = await pool.query(
+      `SELECT
+         ei.product_id,
+         p.product_name,
+         p.product_code,
+         p.base_price,
+         ei.quantity
+       FROM enquiry_items ei
+       JOIN products p ON p.id = ei.product_id
+       WHERE ei.enquiry_id = $1
+       ORDER BY ei.id`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        message: "Enquiry items not found"
+      });
+    }
+
+    res.status(200).json({
+      items: result.rows
+    });
+  } catch (error) {
+    console.error("Error fetching enquiry details:", error);
+
+    res.status(500).json({
+      message: "Failed to fetch enquiry details"
+    });
+  }
+};
 module.exports = {
     createEnquiry,
-    getEnquiries
+    getEnquiries,
+    getEnquiryById
 };

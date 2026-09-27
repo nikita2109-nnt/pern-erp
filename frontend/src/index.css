@@ -37,3 +37,32 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.quotation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.quotation-table th,
+.quotation-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.quotation-table input {
+  width: 110px;
+  padding: 9px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.quotation-grand-total {
+  margin-top: 20px;
+  padding: 16px;
+  background: #eff6ff;
+  border-radius: 8px;
+  text-align: right;
+  color: #1e3a8a;
+}
