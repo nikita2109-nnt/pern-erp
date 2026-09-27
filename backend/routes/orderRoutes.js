@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {
     createSalesOrder,
-    confirmSalesOrder
+    confirmSalesOrder,
+    getOrders
 } = require("../controllers/orderController");
 
 const authenticate = require("../middleware/authMiddleware");
@@ -24,4 +25,5 @@ router.patch(
     authorize("ADMIN", "SALES_USER"),
     confirmSalesOrder
 );
+router.get("/", authenticate, getOrders);
 module.exports = router;

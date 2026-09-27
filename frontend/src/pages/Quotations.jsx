@@ -233,6 +233,33 @@ function Quotations() {
     }
   };
 
+  const handleAcceptQuotation = async (quotationId) => {
+  const confirmed = window.confirm(
+    "Are you sure you want to accept this quotation?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    setError("");
+    setSuccess("");
+
+    await axios.patch(
+      `http://localhost:5000/api/quotations/${quotationId}/accept`,
+      {},
+      { headers: getHeaders() }
+    );
+
+    await fetchQuotations();
+    setSuccess("Quotation accepted successfully!");
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+        "Failed to accept quotation"
+    );
+  }
+};
+
   return (
     <div>
       <h2>Quotation Management</h2>
@@ -416,12 +443,14 @@ function Quotations() {
                   <th>Valid Until</th>
                   <th>Total Amount</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {quotations.map((quotation) => (
                   <tr key={quotation.id}>
+                    
                     <td>
                       {quotation.quotation_number}
                     </td>
@@ -445,6 +474,16 @@ function Quotations() {
                     </td>
 
                     <td>{quotation.status}</td>
+                    <td>
+  {quotation.status === "DRAFT" && (
+    <button
+      type="button"
+      onClick={() => handleAcceptQuotation(quotation.id)}
+    >
+      Accept
+    </button>
+  )}
+</td>
                   </tr>
                 ))}
               </tbody>

@@ -263,7 +263,37 @@ const confirmSalesOrder = async (req, res) => {
         client.release();
     }
 };
+const getOrders = async (req, res) => {
+  try {
+    const result = await pool.query(
+  `SELECT
+     so.id,
+     so.quotation_id,
+     so.order_number,
+     so.order_date,
+     so.total_amount,
+     so.status,
+     c.company_name AS customer_name
+   FROM sales_orders so
+   JOIN customers c
+     ON so.customer_id = c.id
+   ORDER BY so.id DESC`
+);
+
+    return res.status(200).json({
+      message: "Sales orders fetched successfully",
+      orders: result.rows
+    });
+  } catch (error) {
+    console.error("Get orders error:", error.message);
+
+    return res.status(500).json({
+      message: "Failed to load sales orders"
+    });
+  }
+};
 module.exports = {
     createSalesOrder,
-    confirmSalesOrder
+    confirmSalesOrder,
+    getOrders
 };
