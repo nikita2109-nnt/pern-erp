@@ -7,6 +7,15 @@ const createDispatch = async (req, res) => {
     const orderId = Number(req.body?.sales_order_id);
     const { vehicle_number, driver_name } = req.body;
 
+    if (
+    typeof vehicle_number !== "string" ||
+    !vehicle_number.trim()
+) {
+    return res.status(400).json({
+        message: "Vehicle number is required"
+    });
+}
+
     // 1. Validate sales order ID
     if (!Number.isInteger(orderId) || orderId <= 0) {
         return res.status(400).json({
@@ -113,8 +122,10 @@ const createDispatch = async (req, res) => {
             [
                 dispatchNumber,
                 orderId,
-                vehicle_number || null,
-                driver_name || null,
+                vehicle_number.trim(),
+                typeof driver_name === "string"
+                ? driver_name.trim() || null
+                : null,
                 req.user.id
             ]
         );

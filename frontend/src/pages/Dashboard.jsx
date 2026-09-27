@@ -13,6 +13,11 @@ import {
 } from "lucide-react";
 import "./Dashboard.css";
 import Enquiries from "./Enquiries";
+import Quotations from "./Quotations";
+import SalesOrders from "./SalesOrders";
+import Inventory from "./Inventory";
+import Dispatch from "./Dispatch";
+
 function Dashboard() {
   const [activePage, setActivePage] = useState("Dashboard");
 
@@ -101,10 +106,17 @@ function Dashboard() {
             </>
           ) : activePage === "Customers" ? (
   <Customers />
-) : activePage === "Customers" ? (
-  <Customers />
 ) : activePage === "Enquiries" ? (
   <Enquiries />
+) : activePage === "Quotations" ? (
+  <Quotations 
+  
+  /> ) : activePage === "Sales Orders" ? (
+  <SalesOrders />
+) : activePage === "Inventory" ? (
+  <Inventory />
+) : activePage === "Dispatch" ? (
+  <Dispatch />
 ) : (
   <div className="page-placeholder">
     <h2>{activePage}</h2>
