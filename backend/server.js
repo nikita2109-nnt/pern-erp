@@ -8,13 +8,16 @@ const enquiryRoutes = require("./routes/enquiryRoutes");
 const quotationRoutes = require("./routes/quotationRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const dispatchRoutes = require("./routes/dispatchRoutes");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware to read JSON request bodies
 app.use(express.json());
-
+app.use(cors({
+    origin: "http://localhost:5173"
+}));
 // Test API
 app.get("/", (req, res) => {
     res.json({
